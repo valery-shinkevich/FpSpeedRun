@@ -1,13 +1,16 @@
 package fpspeedrun
 
+import fpspeedrun.syntax.eq._
+
 trait Eq[T] {
   def ===(a: T, b: T): Boolean
 }
 
 object Eq {
-  def eq[T](a: Seq[T], b: Seq[T])(implicit f: Eq[T]): Boolean = {
-    if (a.length != b.length) false
-    else
-      a.zip(b).forall { case (x, y) => f.===(x, y) }
+  implicit def eqList[T](implicit f: Eq[T]): Eq[List[T]] = new Eq[List[T]] {
+    override def ===(a: List[T], b: List[T]): Boolean =
+      if (a.length != b.length) false
+      else
+        a.zip(b).forall { case (x, y) => x === y }
   }
 }
