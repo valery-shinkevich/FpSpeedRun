@@ -1,4 +1,5 @@
 import fpspeedrun._
+import fpspeedrun.syntax.eq._
 
 Ratio(1,2) === Ratio(1,2)
 Ratio(2,4) === Ratio(3,6)
