@@ -7,7 +7,5 @@ case class Ratio(num: Int, den: Int) {
 }
 
 object Ratio{
-  def eqRatio = new Eq[Ratio] {
-    override def ===(a: Ratio, b: Ratio): Boolean = a.num.toLong * b.den == a.den.toLong * b.num
-  }
+  def eqRatio: Eq[Ratio] = (a: Ratio, b: Ratio) => a.num.toLong * b.den == a.den.toLong * b.num
 }
