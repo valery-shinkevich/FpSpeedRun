@@ -5,7 +5,7 @@ trait Eq[T] {
 }
 
 object Eq {
-  def eq[T](a: Seq[T], b: Seq[T])(f: Eq[T]): Boolean = {
+  def eq[T](a: Seq[T], b: Seq[T])(implicit f: Eq[T]): Boolean = {
     if (a.length != b.length) false
     else
       a.zip(b).forall { case (x, y) => f.===(x, y) }
