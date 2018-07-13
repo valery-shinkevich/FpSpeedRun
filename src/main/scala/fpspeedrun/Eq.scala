@@ -9,4 +9,15 @@ trait Eq[T] {
 object Eq {
   implicit def eqList[T](implicit f: Eq[T]): Eq[List[T]] =
     (a: List[T], b: List[T]) => if (a.length != b.length) false else a.zip(b).forall { case (x, y) => x === y }
+
+
+  object laws {
+
+    def symmetry[T: Eq](x: T, y: T): Boolean = (x === y) == (y === x)
+
+    def transitivity[T: Eq](x: T, y: T, z: T): Boolean = !((x === y) && (y === z)) || (x === z)
+
+    def reflectivity[T: Eq](x: T): Boolean = x === x
+  }
+
 }
