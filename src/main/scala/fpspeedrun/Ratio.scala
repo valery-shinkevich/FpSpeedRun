@@ -18,4 +18,12 @@ object Ratio {
 
     override def ===(a: Ratio, b: Ratio): Boolean = compare(a, b) == CompareResult.EQ
   }
+
+  def sumRatio(x: Ratio, y: Ratio): Ratio = {
+    if (x.den == y.den)
+      Ratio(x.num + y.num, x.den)
+    else
+      Ratio(x.num * y.den + y.num * x.den, x.den * y.den)
+  }
+
 }
