@@ -30,4 +30,19 @@ object Ratio {
     val g = gcd(num, den)
     Ratio(num / g, den / g)
   }
+
+  def mul(x: Ratio, y: Ratio): Ratio = {
+    val num = x.num * y.num
+    val den = x.den * y.den
+    val g = gcd(num, den)
+    Ratio(num / g, den / g)
+  }
+
+  def div(x: Ratio, y: Ratio): Ratio = {
+    val num = x.num * y.den
+    val den = x.den * y.num
+    val g = gcd(num, den)
+    Ratio(num / g, den / g)
+  }
 }
+
