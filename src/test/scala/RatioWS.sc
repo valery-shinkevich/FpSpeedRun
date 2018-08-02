@@ -10,3 +10,5 @@ val l2 = List(Ratio(3,6), Ratio(2,4))
 l1 === l2
 
 l1 compare l2
+
+Ratio.sum(Ratio(3,4),Ratio(4,3))

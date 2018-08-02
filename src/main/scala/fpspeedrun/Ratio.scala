@@ -1,5 +1,7 @@
 package fpspeedrun
 
+import scala.annotation.tailrec
+
 case class Ratio(num: Int, den: Int)
 
 object Ratio {
@@ -19,11 +21,13 @@ object Ratio {
     override def ===(a: Ratio, b: Ratio): Boolean = compare(a, b) == CompareResult.EQ
   }
 
-  def sumRatio(x: Ratio, y: Ratio): Ratio = {
-    if (x.den == y.den)
-      Ratio(x.num + y.num, x.den)
-    else
-      Ratio(x.num * y.den + y.num * x.den, x.den * y.den)
-  }
+  @tailrec
+  def gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
 
+  def sum(x: Ratio, y: Ratio): Ratio = {
+    val num = x.num * y.den + y.num * x.den
+    val den = x.den * y.den
+    val g = gcd(num, den)
+    Ratio(num / g, den / g)
+  }
 }
