@@ -6,10 +6,11 @@ trait SemiGroup[T] {
 
 object SemiGroup {
 
+  import syntax.semigroup._
+
   object Laws {
-    def associativity[T](x: T, y: T, z: T)(implicit semiGroup: SemiGroup[T]): Boolean = {
-      import semiGroup.combine
-      combine(combine(x, y), z) == combine(x, combine(y, z))
+    def associativity[T: SemiGroup](x: T, y: T, z: T): Boolean = {
+      ((x |+| y) |+| z) == (x |+| (y |+| z))
     }
   }
 
