@@ -14,4 +14,16 @@ object SemiGroup {
     }
   }
 
+  implicit val stringSemiGroup: SemiGroup[String] =
+    (x: String, y: String) => {
+      x + y
+    }
+
+  def combineList[T: SemiGroup](list: List[T]): Option[T] =
+    list.reduceOption((x, y) => x |+| y)
+
 }
+
+final case class Sum[T](value: T) extends AnyVal
+final case class Prod[T](value: T) extends AnyVal
+final case class Div[T](value: T) extends AnyVal
