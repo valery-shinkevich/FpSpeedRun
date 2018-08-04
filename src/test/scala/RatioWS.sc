@@ -25,4 +25,6 @@ SemiGroup.combineList(l3.map(Sum(_))).map(_.value)
 SemiGroup.combineList(l3.map(Prod(_))).map(_.value)
 SemiGroup.combineList(l3.map(Div(_))).map(_.value)
 
-SemiGroup.combineListVia[Sum[Ratio], Ratio](l3)
+SemiGroup.combineListVia[Sum](l3)
+SemiGroup.combineListVia[Prod](l3)
+SemiGroup.combineListVia[Div](l3)

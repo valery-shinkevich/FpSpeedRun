@@ -18,8 +18,12 @@ object SemiGroup {
 
   def combineList[T: SemiGroup](list: List[T]): Option[T] = list.reduceOption((x, y) => x |+| y)
 
-  def combineListVia[U: SemiGroup, T](list: List[T])(implicit iso: Iso[T, U]): Option[T] =
-    list.reduceOption((x, y) => iso.unwrap(iso.wrap(x) |+| iso.wrap(y)))
+  def combineListVia[U[_]] = new CombineListVia[U]
+
+  class CombineListVia[U[_]]{
+    def apply[T](list: List[T])(implicit iso: Iso[T, U[T]], semiGroup: SemiGroup[U[T]]): Option[T] =
+      list.reduceOption((x, y) => iso.unwrap(iso.wrap(x) |+| iso.wrap(y)))
+  }
 }
 
 final case class Sum[T](value: T) extends AnyVal
