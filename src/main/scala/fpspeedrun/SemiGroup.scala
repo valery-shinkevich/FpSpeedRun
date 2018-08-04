@@ -20,10 +20,11 @@ object SemiGroup {
 
   def combineListVia[U[_]] = new CombineListVia[U]
 
-  class CombineListVia[U[_]]{
+  class CombineListVia[U[_]] {
     def apply[T](list: List[T])(implicit iso: Iso[T, U[T]], semiGroup: SemiGroup[U[T]]): Option[T] =
       list.reduceOption((x, y) => iso.unwrap(iso.wrap(x) |+| iso.wrap(y)))
   }
+
 }
 
 final case class Sum[T](value: T) extends AnyVal
@@ -34,6 +35,9 @@ object Sum {
 
     override def unwrap(x: Sum[T]): T = x.value
   }
+
+  implicit val intSum: SemiGroup[Sum[Int]] = (x, y) => Sum(x.value + y.value)
+
 }
 
 final case class Prod[T](value: T) extends AnyVal
@@ -44,6 +48,8 @@ object Prod {
 
     override def unwrap(x: Prod[T]): T = x.value
   }
+
+  implicit val intProd: SemiGroup[Prod[Int]] = (x, y) => Prod(x.value * y.value)
 }
 
 final case class Div[T](value: T) extends AnyVal
@@ -54,4 +60,6 @@ object Div {
 
     override def unwrap(x: Div[T]): T = x.value
   }
+
+  implicit val intDiv: SemiGroup[Div[Int]] = (x, y) => Div(x.value / y.value)
 }

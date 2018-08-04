@@ -28,3 +28,6 @@ SemiGroup.combineList(l3.map(Div(_))).map(_.value)
 SemiGroup.combineListVia[Sum](l3)
 SemiGroup.combineListVia[Prod](l3)
 SemiGroup.combineListVia[Div](l3)
+
+SemiGroup.combineListVia[Sum]((1 to 10).toList)
+SemiGroup.combineListVia[Prod]((1 to 10).toList)

@@ -15,9 +15,9 @@ object Ratio {
 
     override def compare(a: Ratio, b: Ratio): CompareResult =
       (a.num.toLong * b.den, a.den.toLong * b.num) match {
-        case (x, y) if x < y  => CompareResult.LT
+        case (x, y) if x < y => CompareResult.LT
         case (x, y) if x == y => CompareResult.EQ
-        case (x, y) if x > y  => CompareResult.GT
+        case (x, y) if x > y => CompareResult.GT
       }
 
     override def ===(a: Ratio, b: Ratio): Boolean =
@@ -48,13 +48,10 @@ object Ratio {
     Ratio(num / g, den / g)
   }
 
-  implicit val combineListSum: SemiGroup[Sum[Ratio]] = (x, y) =>
-    Sum(sum(x.value, y.value))
+  implicit val ratioSum: SemiGroup[Sum[Ratio]] = (x, y) => Sum(sum(x.value, y.value))
 
-  implicit val combineListProd: SemiGroup[Prod[Ratio]] = (x, y) =>
-    Prod(prod(x.value, y.value))
+  implicit val ratioProd: SemiGroup[Prod[Ratio]] = (x, y) => Prod(prod(x.value, y.value))
 
-  implicit val combineListDiv: SemiGroup[Div[Ratio]] = (x, y) =>
-    Div(div(x.value, y.value))
+  implicit val ratioDiv: SemiGroup[Div[Ratio]] = (x, y) => Div(div(x.value, y.value))
 
 }
